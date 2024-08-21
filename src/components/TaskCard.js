@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { BsFillPlayFill, BsFillPauseFill, BsFillStopFill } from "react-icons/bs";
 import { FaHistory } from "react-icons/fa"; // History Icon
+import { FiPlus } from "react-icons/fi";
+import Navbar from './Navbar';
 
 function FAQ() {
   const [selected, setSelected] = useState(null);
@@ -65,12 +67,17 @@ function FAQ() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="flex items-center justify-center w-full text-sm max-w-[500px]">
       <div className="bg-white rounded-2xl shadow-lg w-full p-6 text-gray-800">
         <div className="faq-wrapper">
-          <header className="text-lg font-bold flex justify-between items-center p-4">
-            Yasar
+          <header className="text-lg border-b border-gray-200 font-bold flex justify-between items-center p-4">
+            <div className="">Yasar</div>
+            <div className='flex items-center space-x-3'>
             <FaHistory />
+            <FiPlus/>
+            </div>
           </header>
           <div className="max-h-[300px] overflow-y-auto">
             <table className="w-full text-left">
@@ -78,7 +85,7 @@ function FAQ() {
                 {faqData.map((item, index) => (
                   <tr
                     key={index}
-                    className="border-b border-gray-200 cursor-pointer transition-all duration-300"
+                    className="border-b border-gray-200  cursor-pointer transition-all duration-300"
                   >
                     <td onClick={() => toggleAccordion(index)} className="p-4 w-full">
                       <div className="flex justify-between items-center">
@@ -134,50 +141,27 @@ function FAQ() {
         </div>
       </div>
     </div>
+
+    </>
   );
 }
 
 const faqData = [
   {
-    question: 'How many team members can I invite?',
+    question: 'Prompt to website',
     answer:
-      'You can invite up to 2 additional users on the Free plan. There is no limit on team members for the Premium plan.',
+      'create a project for convert prompt to runnable website.',
   },
   {
-    question: 'What is the maximum file upload size?',
+    question: 'Work-tracker',
     answer:
-      'No more than 2GB. All files in your account must fit your allotted storage space.',
+      'create a project for work tracker.',
   },
   {
-    question: 'How do I reset my password?',
+    question: 'Paymaster',
     answer:
-      'Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.',
-  },
-  {
-    question: 'Can I cancel my subscription?',
-    answer:
-      'Yes! Send us a message and we’ll process your request no questions asked.',
-  },
-  {
-    question: 'Do you provide additional support?',
-    answer:
-      'Chat and email support is available 24/7. Phone lines are open during normal business hours.',
-  },
-  {
-    question: 'How do I reset my password?',
-    answer:
-      'Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.',
-  },
-  {
-    question: 'Can I cancel my subscription?',
-    answer:
-      'Yes! Send us a message and we’ll process your request no questions asked.',
-  },
-  {
-    question: 'Do you provide additional support?',
-    answer:
-      'Chat and email support is available 24/7. Phone lines are open during normal business hours.',
-  },
+      'create a website for paymaster.',
+  }
 ];
 
 export default FAQ;
