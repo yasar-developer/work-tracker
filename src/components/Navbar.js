@@ -13,7 +13,6 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8  "> 
-        {/* md:w-[40%] sm:w-[30%] w-full */}
             <div className="relative w-full">
               <input
                 required

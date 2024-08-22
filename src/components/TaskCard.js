@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BsFillPlayFill, BsFillPauseFill, BsFillStopFill } from "react-icons/bs";
-import { FaHistory } from "react-icons/fa"; // History Icon
-import { FiPlus } from "react-icons/fi";
+import { FaHistory,FaPlus } from "react-icons/fa"; // History Icon
+// import { FiPlus } from "react-icons/fis";
 import Navbar from './Navbar';
 
 function FAQ() {
@@ -67,82 +67,81 @@ function FAQ() {
   };
 
   return (
-    <>
-    <Navbar/>
-    <div className="flex items-center justify-center w-full text-sm max-w-[500px]">
-      <div className="bg-white rounded-2xl shadow-lg w-full p-6 text-gray-800">
-        <div className="faq-wrapper">
-          <header className="text-lg border-b border-gray-200 font-bold flex justify-between items-center p-4">
-            <div className="">Yasar</div>
-            <div className='flex items-center space-x-3'>
+<>
+  <Navbar />
+  <div className="flex items-center justify-center w-full text-sm max-w-[500px] p-4"> {/* Added padding */}
+    <div className="bg-white rounded-2xl shadow-2xl w-full p-6 text-gray-800"> {/* Added border */}
+      <div className="faq-wrapper">
+        <header className="text-lg font-bold flex justify-between items-center p-4">
+          <div>Yasar</div>
+          <div className="flex items-center space-x-3">
             <FaHistory />
-            <FiPlus/>
-            </div>
-          </header>
-          <div className="max-h-[300px] overflow-y-auto">
-            <table className="w-full text-left">
-              <tbody>
-                {faqData.map((item, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-gray-200  cursor-pointer transition-all duration-300"
+            <FaPlus />
+          </div>
+        </header>
+        <div className="max-h-[300px] overflow-y-auto bg-gray-100 rounded-xl p-2 shadow-lg"> {/* Added padding */}
+          <table className="w-full text-left border-collapse"> {/* Ensured full width and border-collapse */}
+            <tbody>
+              {faqData.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 cursor-pointer transition-all"
+                >
+                  <td
+                    onClick={() => toggleAccordion(index)}
+                    className="p-4 w-full"
                   >
-                    <td onClick={() => toggleAccordion(index)} className="p-4 w-full">
-                      <div className="flex justify-between items-center">
-                        <label
-                          className={`text-gray-800 ${
-                            selected === index
-                              ? 'text-orange-500 font-bold'
-                              : ''
+                    <div className="flex justify-between items-center">
+                      <label
+                        className={`text-gray-800 ${selected === index ? 'text-orange-500 font-bold' : ''
                           }`}
-                        >
-                          {item.question}
-                        </label>
-                        <span className="text-gray-800 ml-4">{formatTime(timers[index].time)}</span>
-                      </div>
-                      <div
-                        className={`overflow-hidden transition-max-height duration-300 ease-in-out ${
-                          selected === index ? 'max-h-screen' : 'max-h-0'
-                        }`}
                       >
-                        <p className="text-sm text-gray-600 mt-2">
-                          {item.answer}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="flex items-center space-x-1 md:space-x-3 p-4">
-                      {timers[index].isRunning ? (
-                        <button
-                          onClick={() => pauseTimer(index)}
-                          className="text-gray-800 hover:text-orange-500 transition-colors"
-                        >
-                          <BsFillPauseFill />
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => startTimer(index)}
-                          className="text-gray-800 hover:text-orange-500 transition-colors"
-                        >
-                          <BsFillPlayFill />
-                        </button>
-                      )}
+                        {item.question}
+                      </label>
+                      <span className="text-gray-800 ml-4">{formatTime(timers[index].time)}</span>
+                    </div>
+                    <div
+                      className={`overflow-hidden transition-max-height duration-500 ease-in-out ${selected === index ? 'max-h-[200px]' : 'max-h-0'
+                        }`}
+                    >
+                      <p className="text-sm text-gray-600 mt-2">
+                        {item.answer}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="flex items-center space-x-1 md:space-x-3 p-4">
+                    {timers[index].isRunning ? (
                       <button
-                        onClick={() => stopTimer(index)}
+                        onClick={() => pauseTimer(index)}
                         className="text-gray-800 hover:text-orange-500 transition-colors"
                       >
-                        <BsFillStopFill />
+                        <BsFillPauseFill />
                       </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    ) : (
+                      <button
+                        onClick={() => startTimer(index)}
+                        className="text-gray-800 hover:text-orange-500 transition-colors"
+                      >
+                        <BsFillPlayFill />
+                      </button>
+                    )}
+                    <button
+                      onClick={() => stopTimer(index)}
+                      className="text-gray-800 hover:text-orange-500 transition-colors"
+                    >
+                      <BsFillStopFill />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
+</>
 
-    </>
   );
 }
 
