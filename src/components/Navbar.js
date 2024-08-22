@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdHistory } from "react-icons/md";
 import { PiSignOutDuotone } from "react-icons/pi";
+import MyContext from "../context/UserContext";
+import { signOut } from "../utils/AuthUtils";
 
 const Navbar = () => {
+  const { IsAuthenticated,setIsAuthenticated } = useContext(MyContext);
+
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-2 md:py-3 lg:py-4 w-full text-sm md:text-base lg:text-lg">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
           <div className="flex-shrink-0 font-semibold text-gray-800">
-            <img src="logo.png" alt="Logo" className="inline-block h-6 md:h-8 lg:h-10 mr-2" />
+            <img
+              src="logo.png"
+              alt="Logo"
+              className="inline-block h-6 md:h-8 lg:h-10 mr-2"
+            />
           </div>
         </div>
-        <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8  "> 
+        {IsAuthenticated ? (
+          <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8  ">
             <div className="relative w-full">
               <input
                 required
@@ -24,22 +33,23 @@ const Navbar = () => {
                 <p className="mx-3 text-xs md:text-sm lg:text-base transition-opacity duration-200 ease-in-out">
                   Search...
                 </p>
+              </div>
+            </div>
+            <button className="text-gray-500 hover:text-blue-600 active:text-blue-800">
+              <MdHistory className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" />
+            </button>
+            <button className="text-gray-500 hover:text-blue-600 active:text-blue-800">
+              <PiSignOutDuotone className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" onClick={() => signOut(setIsAuthenticated)}/>
+            </button>
+            <div className="relative">
+              <img
+                className="h-8 md:h-10 lg:h-12 w-8 md:w-10 lg:w-12 rounded-full object-cover"
+                src="profile.jpg"
+                alt="Profile"
+              />
             </div>
           </div>
-          <button className="text-gray-500 hover:text-blue-600 active:text-blue-800">
-            <MdHistory className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" />
-          </button>
-          <button className="text-gray-500 hover:text-blue-600 active:text-blue-800">
-            <PiSignOutDuotone className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7"/>
-          </button>
-          <div className="relative">
-            <img
-              className="h-8 md:h-10 lg:h-12 w-8 md:w-10 lg:w-12 rounded-full object-cover"
-              src="profile.jpg"
-              alt="Profile"
-            />
-          </div>
-        </div>
+        ):""}
       </div>
     </nav>
   );

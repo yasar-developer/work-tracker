@@ -6,9 +6,31 @@ const MyProvider = ({ children }) => {
   const [snackbarDescription, setSnackbarDescription] = useState("");
   const [severity, setSeverity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [IsAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Define the showSnackbar function
+  const showSnackbar = (message, severity) => {
+    setSnackbarDescription(message);
+    setSeverity(severity);
+    setOpen(true);
+  };
 
   return (
-    <MyContext.Provider value={{  open, setOpen,snackbarDescription, setSnackbarDescription, severity, setSeverity, isLoading, setIsLoading }}>
+    <MyContext.Provider 
+      value={{  
+        open, 
+        setOpen,
+        snackbarDescription, 
+        setSnackbarDescription, 
+        severity, 
+        setSeverity, 
+        isLoading, 
+        setIsLoading, 
+        showSnackbar,
+        IsAuthenticated,
+        setIsAuthenticated
+      }}
+    >
       {children}
     </MyContext.Provider>
   );

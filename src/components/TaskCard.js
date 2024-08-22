@@ -1,8 +1,20 @@
-import { useState, useEffect } from 'react';
-import { BsFillPlayFill, BsFillPauseFill, BsFillStopFill } from "react-icons/bs";
-import { FaHistory,FaPlus } from "react-icons/fa"; // History Icon
-// import { FiPlus } from "react-icons/fis";
-import Navbar from './Navbar';
+import React, { useState, useEffect } from 'react';
+import { FaHistory, FaPlus } from "react-icons/fa";
+import FAQItem from './FAQItem';
+const faqData = [
+  {
+    question: 'Prompt to website',
+    answer: 'create a project for convert prompt to runnable website.',
+  },
+  {
+    question: 'Work-tracker',
+    answer: 'create a project for work tracker.',
+  },
+  {
+    question: 'Paymaster',
+    answer: 'create a website for paymaster.',
+  }
+];
 
 function FAQ() {
   const [selected, setSelected] = useState(null);
@@ -55,112 +67,42 @@ function FAQ() {
     return () => intervals.forEach((interval) => clearInterval(interval));
   }, [timers]);
 
-  // Format time in HH:MM
-  const formatTime = (time) => {
-    const hours = Math.floor(time / 3600)
-      .toString()
-      .padStart(2, '0');
-    const minutes = Math.floor((time % 3600) / 60)
-      .toString()
-      .padStart(2, '0');
-    return `${hours}:${minutes}`;
-  };
-
   return (
-<>
-  <Navbar />
-  <div className="flex items-center justify-center w-full text-sm max-w-[500px] p-4"> {/* Added padding */}
-    <div className="bg-white rounded-2xl shadow-2xl w-full p-6 text-gray-800"> {/* Added border */}
-      <div className="faq-wrapper">
-        <header className="text-lg font-bold flex justify-between items-center p-4">
-          <div>Yasar</div>
-          <div className="flex items-center space-x-3">
-            <FaHistory />
-            <FaPlus />
+    <>
+      <div className="flex items-center justify-center w-full text-sm max-w-[500px] p-4"> {/* Added padding */}
+        <div className="bg-white rounded-2xl shadow-2xl w-full p-6 text-gray-800"> {/* Added border */}
+          <div className="faq-wrapper">
+            <header className="text-lg font-bold flex justify-between items-center p-4">
+              <div>Yasar</div>
+              <div className="flex items-center space-x-3">
+                <FaHistory className='cursor-pointer'/>
+                <FaPlus className='cursor-pointer'/>
+              </div>
+            </header>
+            <div className="max-h-[300px] overflow-y-auto bg-gray-100 rounded-xl p-2 shadow-lg"> {/* Added padding */}
+              <table className="w-full text-left border-collapse"> {/* Ensured full width and border-collapse */}
+                <tbody>
+                  {faqData.map((item, index) => (
+                    <FAQItem
+                      key={index}
+                      item={item}
+                      index={index}
+                      selected={selected}
+                      onToggleAccordion={toggleAccordion}
+                      onStartTimer={startTimer}
+                      onPauseTimer={pauseTimer}
+                      onStopTimer={stopTimer}
+                      timer={timers[index]}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </header>
-        <div className="max-h-[300px] overflow-y-auto bg-gray-100 rounded-xl p-2 shadow-lg"> {/* Added padding */}
-          <table className="w-full text-left border-collapse"> {/* Ensured full width and border-collapse */}
-            <tbody>
-              {faqData.map((item, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-200 cursor-pointer transition-all"
-                >
-                  <td
-                    onClick={() => toggleAccordion(index)}
-                    className="p-4 w-full"
-                  >
-                    <div className="flex justify-between items-center">
-                      <label
-                        className={`text-gray-800 ${selected === index ? 'text-orange-500 font-bold' : ''
-                          }`}
-                      >
-                        {item.question}
-                      </label>
-                      <span className="text-gray-800 ml-4">{formatTime(timers[index].time)}</span>
-                    </div>
-                    <div
-                      className={`overflow-hidden transition-max-height duration-500 ease-in-out ${selected === index ? 'max-h-[200px]' : 'max-h-0'
-                        }`}
-                    >
-                      <p className="text-sm text-gray-600 mt-2">
-                        {item.answer}
-                      </p>
-                    </div>
-                  </td>
-                  <td className="flex items-center space-x-1 md:space-x-3 p-4">
-                    {timers[index].isRunning ? (
-                      <button
-                        onClick={() => pauseTimer(index)}
-                        className="text-gray-800 hover:text-orange-500 transition-colors"
-                      >
-                        <BsFillPauseFill />
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => startTimer(index)}
-                        className="text-gray-800 hover:text-orange-500 transition-colors"
-                      >
-                        <BsFillPlayFill />
-                      </button>
-                    )}
-                    <button
-                      onClick={() => stopTimer(index)}
-                      className="text-gray-800 hover:text-orange-500 transition-colors"
-                    >
-                      <BsFillStopFill />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
-    </div>
-  </div>
-</>
-
+    </>
   );
 }
-
-const faqData = [
-  {
-    question: 'Prompt to website',
-    answer:
-      'create a project for convert prompt to runnable website.',
-  },
-  {
-    question: 'Work-tracker',
-    answer:
-      'create a project for work tracker.',
-  },
-  {
-    question: 'Paymaster',
-    answer:
-      'create a website for paymaster.',
-  }
-];
 
 export default FAQ;
