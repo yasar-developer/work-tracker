@@ -11,12 +11,14 @@ import TaskPage from "./taskPage";
 import CreateCard from "./components/TaskCreateCard";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+import { useState } from "react";
 
 
 // Create the Home component here
 function Home() {
   const { open, setOpen, snackbarDescription, severity } = useContext(MyContext);
   const { setIsLoading, setIsAuthenticated, showSnackbar, isLoading, IsAuthenticated, setUserId } = useContext(MyContext);
+  const [searchText, setSearchText] = useState(""); // Step 1: Declare state variable
   useEffect(() => {
     const fetchData = async () => {
       const userId = await checkToken(setIsLoading, setIsAuthenticated, showSnackbar);
@@ -58,7 +60,7 @@ function Home() {
         </Alert>
       </Snackbar>
       {isLoading && <Loading />}
-      <Navbar />
+      <Navbar searchText={searchText} setSearchText={setSearchText} />
       {!IsAuthenticated ? (
         <div className="flex justify-center items-center h-screen">
         <AuthForm />

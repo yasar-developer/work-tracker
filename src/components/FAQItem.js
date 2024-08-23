@@ -10,7 +10,7 @@ import { ResumeStart, handlePause, handleStop, handleStart } from "../utils/Work
 import MyContext from "../context/UserContext";
 import { RxResume } from "react-icons/rx";
 
-const FAQItem = ({ item, index, selected, onToggleAccordion, isUserEnabled }) => {
+const FAQItem = ({ item, index, selected, onToggleAccordion, isUserEnabled,fetchUserWorkById }) => {
   const { showSnackbar } = useContext(MyContext);
   const [time, setTime] = useState(0);
   const [isPaused, setIsPaused] = useState(item.isPaused || false);
@@ -18,21 +18,25 @@ const FAQItem = ({ item, index, selected, onToggleAccordion, isUserEnabled }) =>
 
   const onPauseTimer = () => {
     handlePause(item, showSnackbar).then(() => {
+      fetchUserWorkById();
       setIsPaused(true);
       setIsRunning(false);
     });
   };
 
   const onStartTimer = () => {
-    console.log("item:", item);
+    // console.log("item:", item);
     handleStart(item, showSnackbar).then(() => {
+      fetchUserWorkById();
       setIsPaused(false);
       setIsRunning(true);
     });
   };
 
   const onResumeTimer = () => {
+    console.log("on resume timer working");
     ResumeStart(item, showSnackbar).then(() => {
+      fetchUserWorkById();
       setIsPaused(false);
       setIsRunning(true);
     });
@@ -40,6 +44,7 @@ const FAQItem = ({ item, index, selected, onToggleAccordion, isUserEnabled }) =>
 
   const onStopTimer = () => {
     handleStop(item, showSnackbar).then(() => {
+      fetchUserWorkById();
       setIsRunning(false);
       setIsPaused(false);
     });

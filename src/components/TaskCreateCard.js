@@ -3,7 +3,7 @@ import MyContext from "../context/UserContext";
 import { createWork } from "../utils/WorkUtils";
 import { FaXmark } from "react-icons/fa6";
 
-const CreateCard = ({ test }) => {
+const CreateCard = ({ test,fetchUserWorkById }) => {
   const { userId, showSnackbar } = useContext(MyContext);
   const [titleValue, setTitleValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
@@ -29,7 +29,7 @@ const CreateCard = ({ test }) => {
       return;
     }
 
-    createWork(titleValue, descriptionValue, userId, showSnackbar);
+    createWork(titleValue, descriptionValue, userId, showSnackbar,fetchUserWorkById,test);
   };
 
   return (

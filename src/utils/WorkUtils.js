@@ -1,7 +1,7 @@
 const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
-const createWork = async (title, description, userId, showSnackbar) => {
-  console.log("User ID:", userId);
+const createWork = async (title, description, userId, showSnackbar,fetchUserWorkById,test) => {
+  // console.log("User ID:", userId);
   try {
     const newWork = {
       userId: userId,
@@ -23,6 +23,8 @@ const createWork = async (title, description, userId, showSnackbar) => {
 
     await response.json();
     showSnackbar("Work Created successfully", "success");
+    fetchUserWorkById();
+    test();
     // fetchUser(); // Uncomment if needed
   } catch (error) {
     console.error("Error:", error);
@@ -31,9 +33,9 @@ const createWork = async (title, description, userId, showSnackbar) => {
 };
 
 const ResumeStart = async (task, showSnackbar) => {
-  if (!task.task_id) return;
+  if (!task._id) return;
   try {
-    const response = await fetch(`${apiBaseUrl}/work/play-work/${task.task_id}`, {
+    const response = await fetch(`${apiBaseUrl}/work/play-work/${task._id}`, {
       method: "PUT",
     });
 
@@ -44,7 +46,7 @@ const ResumeStart = async (task, showSnackbar) => {
     }
 
     const updatedWork = await response.json();
-    console.log("Work resumed:", updatedWork);
+    // console.log("Work resumed:", updatedWork);
     showSnackbar("Work resumed successfully", "success");
   } catch (error) {
     showSnackbar("Error resuming work", "failure");
@@ -82,7 +84,7 @@ const handleStop = async (task, showSnackbar) => {
 };
 
 const handleStart = async (task, showSnackbar) => {
-  console.log("Task:", task);
+  // console.log("Task:", task);
   const startTime = new Date().toISOString();
   const updatedWork = {
     startTime: startTime,
@@ -113,7 +115,7 @@ const handleStart = async (task, showSnackbar) => {
 
 
 const handlePause = async (task, showSnackbar) => {
-  console.log("Task:", task);
+  // console.log("Task:", task);
   if (!task._id) return;
   try {
     const response = await fetch(`${apiBaseUrl}/work/pause-work/${task._id}`, {
@@ -127,7 +129,7 @@ const handlePause = async (task, showSnackbar) => {
     }
 
     const updatedWork = await response.json();
-    console.log("Work paused:", updatedWork);
+    // console.log("Work paused:", updatedWork);
     showSnackbar("Work paused successfully", "success");
   } catch (error) {
     console.error("Error pausing work:", error);

@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { MdHistory } from "react-icons/md";
 import { PiSignOutDuotone } from "react-icons/pi";
 import MyContext from "../context/UserContext";
 import { signOut } from "../utils/AuthUtils";
 
-const Navbar = () => {
-  const { IsAuthenticated,setIsAuthenticated } = useContext(MyContext);
+const Navbar = ({searchText,setSearchText}) => {
+  const { IsAuthenticated, setIsAuthenticated } = useContext(MyContext);
+
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value); // Step 2: Update state variable
+  };
 
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-2 md:py-3 lg:py-4 w-full text-sm md:text-base lg:text-lg">
@@ -21,11 +25,13 @@ const Navbar = () => {
           </div>
         </div>
         {IsAuthenticated ? (
-          <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8  ">
+          <div className="flex items-center space-x-4 md:space-x-6 lg:space-x-8">
             <div className="relative w-full">
               <input
                 required
                 type="text"
+                value={searchText} // Step 3: Bind state variable to input
+                onChange={handleSearchChange} // Step 2: Update state variable on change
                 className="sc-searchbox-field h-10 md:h-12 lg:h-14 w-full pl-10 md:pl-12 lg:pl-14 pr-4 py-4 bg-[#e7edf3] rounded-xl border-0 focus:outline-none text-black"
               />
               <div className="absolute inset-0 flex items-center justify-center text-black/60 pointer-events-none transition-transform duration-200 ease-in-out sc-searchbox-placeholder">
@@ -39,7 +45,7 @@ const Navbar = () => {
               <MdHistory className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" />
             </button>
             <button className="text-gray-500 hover:text-blue-600 active:text-blue-800">
-              <PiSignOutDuotone className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" onClick={() => signOut(setIsAuthenticated)}/>
+              <PiSignOutDuotone className="h-5 md:h-6 lg:h-7 w-5 md:w-6 lg:w-7" onClick={() => signOut(setIsAuthenticated)} />
             </button>
             <div className="relative">
               <img
@@ -49,7 +55,7 @@ const Navbar = () => {
               />
             </div>
           </div>
-        ):""}
+        ) : ""}
       </div>
     </nav>
   );

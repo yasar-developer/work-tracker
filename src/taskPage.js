@@ -20,7 +20,7 @@ function TaskPage() {
       setIsLoading(true);
       try {
         const user_data = await fetchUserWithCurrentWork(); // Remove setIsLoading from here
-        console.log("Fetched user data:", user_data);
+        // console.log("Fetched user data:", user_data);
         if (Array.isArray(user_data)) {
           setUsers(user_data);
         } else {
@@ -41,7 +41,7 @@ function TaskPage() {
  {/* Center the content horizontally */}
       <div className="grid">
         {enabledUsers.map((user, index) => (
-          <TaskCard key={user._id} name={user.name} work={user.allWork} isUserEnabled={true} />
+          <TaskCard key={user._id} userId={user._id} name={user.name} work={user.allWork} isUserEnabled={true} />
         ))}
       </div>
 
@@ -54,7 +54,7 @@ function TaskPage() {
       )}
       <div className="grid">
         {disabledUsers.map((user, index) => (
-          <TaskCard key={user._id} name={user.name} work={user.allWork} isUserEnabled={false}/>
+          <TaskCard key={user._id} userId={user._id} name={user.name} work={user.allWork} isUserEnabled={false}/>
         ))}
       </div>
     </div>
