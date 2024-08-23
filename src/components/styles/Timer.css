@@ -1,0 +1,64 @@
+.indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .indicator.red {
+    background-color: red;
+    animation: pulseRed 1s infinite;
+  }
+  
+  .indicator.yellow {
+    background-color: #f59d05;
+    animation: pulseYellow 1s infinite;
+  }
+  
+  .indicator.green {
+    background-color: green;
+    animation: pulseGreen 1s infinite;
+  }
+  
+  .indicator.gray {
+    background-color: gray;
+  }
+  
+  @keyframes pulseRed {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulseYellow {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulseGreen {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
