@@ -7,6 +7,7 @@ const MyProvider = ({ children }) => {
   const [severity, setSeverity] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [IsAuthenticated, setIsAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   // Define the showSnackbar function
   const showSnackbar = (message, severity) => {
@@ -28,7 +29,9 @@ const MyProvider = ({ children }) => {
         setIsLoading, 
         showSnackbar,
         IsAuthenticated,
-        setIsAuthenticated
+        setIsAuthenticated,
+        userId,
+        setUserId
       }}
     >
       {children}

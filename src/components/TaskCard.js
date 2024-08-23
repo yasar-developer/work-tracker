@@ -16,7 +16,7 @@ const faqData = [
   }
 ];
 
-function FAQ() {
+const TaskCard = ({ key, name, work }) => {
   const [selected, setSelected] = useState(null);
   const [timers, setTimers] = useState(
     faqData.map(() => ({ time: 0, isRunning: false }))
@@ -73,7 +73,7 @@ function FAQ() {
         <div className="bg-white rounded-2xl shadow-2xl w-full p-6 text-gray-800"> {/* Added border */}
           <div className="faq-wrapper">
             <header className="text-lg font-bold flex justify-between items-center p-4">
-              <div>Yasar</div>
+              <div>{name}</div>
               <div className="flex items-center space-x-3">
                 <FaHistory className='cursor-pointer'/>
                 <FaPlus className='cursor-pointer'/>
@@ -105,4 +105,4 @@ function FAQ() {
   );
 }
 
-export default FAQ;
+export default TaskCard;

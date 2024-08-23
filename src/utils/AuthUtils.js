@@ -3,7 +3,7 @@ const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
 const checkToken = async (setIsLoading, setIsAuthenticated, showSnackbar) => {
   const token = localStorage.getItem("token");
-  console.log("Token:", token);
+  // console.log("Token:", token);
   if (token) {
     try {
       setIsLoading(true);
@@ -15,11 +15,19 @@ const checkToken = async (setIsLoading, setIsAuthenticated, showSnackbar) => {
         },
       });
 
-      console.log("Response:", response);
+      // Parse the JSON response
+      const data = await response.json();
+      // console.log("Response:", data);
+
       if (response.ok) {
+        // Print userId from the response data
+        // console.log("User ID:", data.userId);
+
         setIsLoading(false);
         setIsAuthenticated(true);
         showSnackbar("Signed in successfully", "success");
+        console.log("User ID:", data.userId);
+        return data.userId
       } else {
         localStorage.removeItem("token");
         setIsAuthenticated(false);
@@ -35,6 +43,7 @@ const checkToken = async (setIsLoading, setIsAuthenticated, showSnackbar) => {
     }
   }
 };
+
 
 const auth = async (
   isLogin,
@@ -58,9 +67,9 @@ const auth = async (
 
     const result = await response.json();
 
-    console.log(result);
+    // console.log(result);
     if (response.ok) {
-      console.log("Token:", result.token);
+      // console.log("Token:", result.token);
       localStorage.setItem("token", result.token);
       setIsAuthenticated(true);
       showSnackbar("Signed in successfully", "success");

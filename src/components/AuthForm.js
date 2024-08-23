@@ -46,7 +46,7 @@ function App() {
       return;
     }
     
-    console.log("Form Data Submitted:", formData);
+    // console.log("Form Data Submitted:", formData);
   };
 
   return (

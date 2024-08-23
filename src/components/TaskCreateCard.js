@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import MyContext from "../context/UserContext";
+import createWork from "../utils/WorkUtils";
 
 const CreateCard = ({ fetchUser }) => {
-  const { setOpen, setSnackbarDescription, setSeverity } = useContext(MyContext);
+  const { userId,showSnackbar } = useContext(MyContext);
   const [titleValue, setTitleValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -27,37 +28,15 @@ const CreateCard = ({ fetchUser }) => {
       return;
     }
 
-    try {
-      const response = await fetch("https://tracker-server-dev.vercel.app/users/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: titleValue, description: descriptionValue }),
-      });
-
-      if (response.ok) {
-        setTitleValue(""); // Clear title input after success
-        setDescriptionValue(""); // Clear description input after success
-        setOpen(true);
-        setSnackbarDescription("User created successfully!");
-        setSeverity("success");
-        fetchUser();
-      } else {
-        setOpen(true);
-        setSnackbarDescription("Failed to create user.");
-        setSeverity("error");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred.");
-    }
+    createWork(titleValue, descriptionValue, userId, showSnackbar);
   };
 
   return (
     <div className="flex items-center justify-center w-full text-sm max-w-[500px] p-4">
       <div className="bg-white rounded-2xl shadow-2xl w-full p-6 text-gray-800 relative">
-        New Work
+      <header className="text-lg font-bold flex justify-between items-center">
+              <div>Create New Work Item</div>
+            </header>
         <div className="p-4">
           <input
             type="text"

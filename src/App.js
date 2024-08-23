@@ -13,14 +13,21 @@ import CreateCard from "./components/TaskCreateCard";
 
 // Create the Home component here
 function Home() {
-  const { setIsLoading, setIsAuthenticated, showSnackbar, isLoading, IsAuthenticated } = useContext(MyContext);
+  const { setIsLoading, setIsAuthenticated, showSnackbar, isLoading, IsAuthenticated, setUserId } = useContext(MyContext);
   useEffect(() => {
-    checkToken(setIsLoading, setIsAuthenticated, showSnackbar);
+    const fetchData = async () => {
+      const userId = await checkToken(setIsLoading, setIsAuthenticated, showSnackbar);
+      if (userId) {
+        setUserId(userId);
+      }
+    };
+  
+    fetchData();
   }, []);
 
   return (
     <div>
-      {/* {isLoading && <Loading />} */}
+      {isLoading && <Loading />}
       <Navbar />
       {!IsAuthenticated ? (
         <div className="flex justify-center items-center h-screen">
@@ -28,7 +35,7 @@ function Home() {
       </div>
       ) : (
         <>
-        <TaskCard />
+        {/* <TaskCard /> */}
         <TaskPage/>
         <CreateCard />
         </>

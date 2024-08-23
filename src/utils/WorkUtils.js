@@ -1,9 +1,12 @@
-const createWork = async () => {
-    try {
-    setIsRunning(true);
+const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
 
+const createWork = async (title, description, userId, showSnackbar) => {
+
+  console.log("User ID:", userId);
+    try {
     const newWork = {
-      userId: task._id,
+      userId: userId,
+      title: title || "",
       description: description || "",
       startTime: new Date().toISOString(),
     };
@@ -17,7 +20,7 @@ const createWork = async () => {
     }).then((res) => {
       res.json();
       showSnackbar("Work Created successfully", "success");
-      fetchUser(); // Fetch the updated list of cards
+      // fetchUser();
     });
     } catch (error) {
       console.error("Error:", error);
